@@ -1,0 +1,20 @@
+version: '3.6'
+
+networks:
+  app-network:
+
+services:
+  rabbit-dev:
+    image: "rabbitmq:3.8-management"
+    hostname: "rabbit-dev"
+    restart: unless-stopped
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: ${RabbitConnection_Username}
+      RABBITMQ_DEFAULT_PASS: ${RabbitConnection_Password}
+      RABBITMQ_DEFAULT_VHOST: "/"
+    networks:
+      - app-network
+    ports:
+      - ${RabbitConnection_ExtPort}:${RabbitConnection_ExtPort}
+      - ${RabbitConnection_Port}:${RabbitConnection_Port}
